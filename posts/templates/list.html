@@ -7,7 +7,7 @@
 <body>
 	{% for item in post_items %}
 	<ul>
-		<li>{{item.id}}</li>
+		<a href="{{item.get_detail_url}}"><li>{{item.id}}</li></a>
 		<li>{{item.topic}}</li>
 		<li>{{item.content}}</li>
 	</ul>
