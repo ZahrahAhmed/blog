@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+
+{% block heading %} Create {% endblock heading %}
+{% block content %}
+	<div class="jumbotron">
+		<h1 class="display-3"> Create a Post </h1>
+   	</div>
+	<form action="{% url 'posts:create' %}" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{form.as_p}}
+		<input class="list-group-item list-group-item-info" type="submit" value="create">
+	</form>
+{% endblock content %}
+	
+	
+
