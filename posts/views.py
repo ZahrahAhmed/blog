@@ -3,6 +3,8 @@ from .models import Post
 from .forms import PostForm 
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from urllib.parse import quote
+from django.http import Http404
 
 
 def post_list(request):
@@ -20,14 +22,17 @@ def post_list(request):
 	}
 	return render(request, "list.html", con)
 
-def post_detail(request, post_id):
-	item = get_object_or_404(Post, id=post_id)
+def post_detail(request, post_slug):
+	item = get_object_or_404(Post, slug=post_slug)
 	text = {
 		"item" :item,
+		"share_string": quote(item.content)
 	}
 	return render(request, "detail.html", text)
 
 def post_create(request):
+	if not request.user.is_staff:
+		raise Http404
 	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		form.save()
@@ -38,35 +43,24 @@ def post_create(request):
 	 }
 	return render(request, 'create.html', context)
 
-def post_update(request, post_id):
-	item = Post.objects.get(id=post_id)
+def post_update(request, post_slug):
+	item = Post.objects.get(slug=post_slug)
 
 	form = PostForm(request.POST or None, request.FILES or None, instance=item )
 	if form.is_valid():
 		form.save()
 		messages.info(request, "you updated a blog post")
-		return redirect("posts:detail", post_id=item.id)
+		return redirect("posts:detail", post_slug=item.slug)
 	context = { 
 		"form": form,
 		"item": item,
 	 }
 	return render(request, 'update.html', context)
 
-def post_delete(request, post_id):
-	Post.objects.get(id=post_id).delete()
+def post_delete(request, post_slug):
+	Post.objects.get(slug=post_slug).delete()
 	messages.warning(request, "Y THO")
 	return redirect("posts:list")
-
-
-
-
-
-
-
-
-
-
-
 
 
 

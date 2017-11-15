@@ -7,26 +7,29 @@
 
 	<div class="jumbotron">
 		<h1 class="display-3">THESE ARE MY POSTS!</h1>
-   		<a class="btn btn-primary btn-lg" href="{% url 'posts:create' %}"" role="button">Create</a>
+   		<a class="btn btn-primary btn-lg" href="{% url 'posts:create' %}" role="button">Create</a>
 
    	</div>
 
    	<div class="row">
 		{% for item in post_items %}
 			<div class=" card col-xs-12 col-md-4" style="width: 20rem;"> 
+
 				{% if item.img %}
 				<img class="card-img-top" src="{{item.img.url}}" alt="Card image cap">
 				{% endif %}
+
 				<div class= card-body>
 					<h4 class="card-title">{{item.topic}} <small>{{item.update| timesince}}</small></h4>
 					<p class="card-text">{{item.content| linebreaks| truncatechars:30}}</p>
-					<a href="{% url 'posts:detail' post_id=item.id %}" class="btn btn-info"> read more </a>
-					<a href="{% url 'posts:update' post_id=item.id %}" class="btn btn-warning"> update </a>
-					<a href="{% url 'posts:delete' post_id=item.id %}" class="btn btn-danger"> delete </a>
+					<a href="{% url 'posts:detail' post_slug=item.slug %}" class="btn btn-info"> read more<i class="fa fa-book" aria-hidden="true"></i></a>
+					<a href="{% url 'posts:update' post_slug=item.slug %}" class="btn btn-warning"> update <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					<a href="{% url 'posts:delete' post_slug=item.slug %}" class="btn btn-danger"> delete <i class="fa fa-trash-o" aria-hidden="true"></i></a>
 				</div>
 			</div>
 		{% endfor %}
 	</div>
+	
 	<div class="pagination">
     <span class="step-links">
         {% if post_items.has_previous %}
@@ -41,7 +44,8 @@
             <a href="?page={{ post_items.next_page_number }}">next</a>
         {% endif %}
     </span>
-</div>
+	</div>
+
 {% endblock content %}
 	
 	

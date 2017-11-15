@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load share %}
+
 {% block heading %} Detail {% endblock heading %}
 {% block content %}
 	<div class="jumbotron">
@@ -7,10 +9,9 @@
 		<h1 class="display-3"> Details </h1>
 		
    	</div>
-
 	<div class="row">
-
-		<div class="card col-xs-12 col-md-8" style="width: 30rem;">
+		<div class="col-12 d-flex justify-content-center">
+		<div class="card" style="width: 30rem;">
 
 			<div class="card-body">
 
@@ -18,9 +19,30 @@
 				<p class="list-group-item list-group-item-danger">{{item.content}}</p>
 
 			</div>
+			{% if item.img %}
+				<img class="card-img-top" src="{{item.img.url}}" alt="Card image cap">
+			{% endif %}
 
 		</div>
-
+		</div>
+	
+	<li> 	
+		<li> 
+			<a class="btn btn-primary" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}">
+			Share on Facebook <i class="fa fa-facebook-official" aria-hidden="true"></i>
+			</a>
+		</li>
+		<li>
+			<a class="btn btn-info" href="https://twitter.com/home?status={{share_string}}%20{{request.build_absolute_uri}}">
+			Share on Twitter <i class="fa fa-twitter-square" aria-hidden="true"></i>
+			</a>
+		</li>
+		<li>
+			<a class="btn btn-warning" href="https://www.linkedin.com/shareArticle?mini=true&url={{request.build_absolute_uri}}&title={{item.topic|share}}&summary={{item.content|share}}&source={{request.build_absolute_uri}}">
+			Share on Linkedin <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+			</a>
+		</li>
+	</li>
 	</div>
 {% endblock content %}
 	
