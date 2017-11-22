@@ -1,12 +1,15 @@
 
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block heading %} Update {% endblock heading %}
 {% block content %}
+	<div class="jumbotron">
+		<h1 class="display-3 "> Update </h1>
+   	</div>
 	<form action="{% url 'posts:update' post_slug=item.slug %}" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
-		{{form.as_p}}
-		<input class="list-group-item list-group-item-warning" type="submit" value="update">
+		{{form|crispy}}
+		<input class="list-group-item list-group-item-warning btn btn-warning" type="submit" value="update">
 	</form>
 {% endblock content %}
 	

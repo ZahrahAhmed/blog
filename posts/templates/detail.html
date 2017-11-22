@@ -26,6 +26,7 @@
 		</div>
 		</div>
 	
+	<div class="container">
 	<li> 	
 		<li> 
 			<a class="btn btn-primary" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}">
@@ -44,6 +45,40 @@
 		</li>
 	</li>
 	</div>
+	</div>
+
+	<div class="btn" onclick="ajax_like()"> 
+		<span id="likes_count">{{like_count}}</span>
+		<span><i id="heart" class="fa fa-heart {% if liked %} text-danger {% endif %} form-control input-lg" aria-hidden="true"></i> </span>
+	</div>
+
+	<br></br>
+	
+	{% include "comments.html" %}
+
+	<script>
+	function ajax_like() 
+	{
+		$.ajax(
+			{
+				type: 'GET',
+				url: '{% url "posts:like_button" post_slug=item.slug %}',
+				error: function(){
+					console.log("omg");
+				},
+				success: function(data){
+					$("#likes_count").text(data.like_count);
+					if(data.action==="like"){
+						$("#heart").addClass("text-danger");
+					}
+					else {
+						$("#heart").removeClass("text-danger");
+					}
+				},
+			});
+	}
+	</script>
+
 {% endblock content %}
 	
 	

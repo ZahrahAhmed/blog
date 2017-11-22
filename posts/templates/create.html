@@ -1,6 +1,6 @@
 
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block heading %} Create {% endblock heading %}
 {% block content %}
 	<div class="jumbotron">
@@ -8,8 +8,8 @@
    	</div>
 	<form action="{% url 'posts:create' %}" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
-		{{form.as_p}}
-		<input class="list-group-item list-group-item-info" type="submit" value="create">
+		{{form|crispy}}
+		<input class="list-group-item list-group-item-info btn btn-success" type="submit" value="create">
 	</form>
 {% endblock content %}
 
