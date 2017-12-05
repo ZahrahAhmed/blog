@@ -111,8 +111,6 @@ def post_detail(request, post_slug):
 		"share_string": quote(item.content),
 		"liked": liked,
 		"like_count": like_count,
-
-
 	}
 	return render(request, "detail.html", text)
 

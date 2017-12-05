@@ -4,7 +4,10 @@
 {% block content %}
     <form action="{% url 'posts:login' %}" method="POST">
         {% csrf_token %}
-        {{form|crispy}
-        <input class = "btn btn-primary" type="submit" value="Log In">
+        {{form|crispy}}
+        <input class = "btn btn-success" type="submit" value="Log In">
+        <a href="{% url 'github_login' %}" class="btn btn-dark"> <i class="fa fa-github" aria-hidden="true"> </i>  Login Using Github</a>
+        <a href="{% url 'twitter_login' %}" class="btn btn-primary"> <i class="fa fa-twitter" aria-hidden="true"> </i>  Login Using Twitter</a>
+        <a href="{% url 'instagram_login' %}" class="btn btn-secondary"> <i class="fa fa-instagram" aria-hidden="true"> </i>  Login Using Instagram</a>
     </form>
 {% endblock content %}

@@ -7,8 +7,14 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^posts/', include('posts.urls' , namespace="posts")),
+    url(r'^googly/', include('googly.urls' , namespace="googly")),
+    url(r'^gitty/', include('gitty.urls' , namespace="gitty")),
+    url(r'^twitty/', include('twitty.urls' , namespace="twitty")),
+    url(r'^api/', include('api.urls' , namespace="api")),
+
     url(r'^comments/', include('django_comments.urls')),
-    
+    url(r'^accounts/', include('allauth.urls')),
+
 ]
 
 if settings.DEBUG:
