@@ -84,7 +84,7 @@ class PostDetailView(RetrieveAPIView):
 	lookup_url_kwarg = 'post_slug'
 	permission_classes=[AllowAny]
 
-class PostDeleteView(RetrieveAPIView):
+class PostDeleteView(DestroyAPIView):
 	queryset = Post.objects.all()
 	serializer_class = PostListSerializer
 	lookup_field = 'slug'

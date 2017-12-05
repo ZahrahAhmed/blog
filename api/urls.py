@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^comments/create/$', views.CommentCreateView.as_view(), name="comment-create"),
     url(r'^register/$', views.UserCreateView.as_view(), name="register"),
     url(r'^login/$', views.UserLoginView.as_view(), name="login"),
+    
 ]
